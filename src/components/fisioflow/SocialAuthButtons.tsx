@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { toast } from "sonner";
-import { supabase } from "@/integrations/supabase/client";
+import { lovable } from "@/integrations/lovable";
 
 type Provider = "google" | "apple";
 
@@ -29,24 +29,19 @@ export function SocialAuthButtons() {
   async function handle(provider: Provider) {
     setLoading(provider);
     try {
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider,
-        options: {
-          redirectTo: `${window.location.origin}/home`,
-        },
+      const result = await lovable.auth.signInWithOAuth(provider, {
+        redirect_uri: window.location.origin,
       });
-      if (error) {
-        const msg = error.message?.toLowerCase() ?? "";
-        if (msg.includes("provider is not enabled") || msg.includes("unsupported provider")) {
-          toast.error(
-            `${provider === "google" ? "Google" : "Apple"} não está habilitado. Ative em Cloud → Users → Auth Settings → Sign In Methods.`,
-          );
-        } else {
-          toast.error(`Falha no login com ${provider === "google" ? "Google" : "Apple"}: ${error.message}`);
-        }
+
+      if (result.redirected) return;
+
+      if (result.error) {
+        toast.error(`Falha no login com ${provider === "google" ? "Google" : "Apple"}: ${result.error.message}`);
         setLoading(null);
+        return;
       }
-      // On success the browser navigates away to the provider.
+
+      window.location.assign("/home");
     } catch {
       toast.error("Erro inesperado no login social");
       setLoading(null);
