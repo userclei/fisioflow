@@ -1,0 +1,455 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * FisioFlow design tokens.
+ * All new colors registered under @theme inline so they map to Tailwind utilities
+ * (e.g. bg-primary, text-foreground, bg-card-soft, text-icon-muted).
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "SF Pro Display",
+    "Segoe UI", Roboto, sans-serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-card-soft: var(--card-soft);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-dark: var(--primary-dark);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-icon-muted: var(--icon-muted);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-navy: var(--navy);
+  --color-navy-foreground: var(--navy-foreground);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --shadow-soft: 0 12px 30px rgba(6, 43, 73, 0.06);
+  --shadow-glow: 0 12px 30px rgba(8, 199, 186, 0.28);
+}
+
+:root {
+  --radius: 1.25rem;
+
+  --background: #fff3ef;
+  --foreground: #062b49;
+
+  --navy: #062b49;
+  --navy-foreground: #ffffff;
+
+  --card: #ffffff;
+  --card-foreground: #062b49;
+  --card-soft: #eef7f2;
+
+  --popover: #ffffff;
+  --popover-foreground: #062b49;
+
+  --primary: #08c7ba;
+  --primary-foreground: #ffffff;
+  --primary-dark: #00afa5;
+
+  --secondary: #eef7f2;
+  --secondary-foreground: #062b49;
+
+  --muted: #f6ece8;
+  --muted-foreground: #5f5a66;
+
+  --accent: #eef7f2;
+  --accent-foreground: #062b49;
+
+  --destructive: #ef6b6b;
+  --destructive-foreground: #ffffff;
+
+  --success: #3ddc97;
+  --warning: #f6c85f;
+  --icon-muted: #9aa8b5;
+
+  --border: #f0deda;
+  --input: #f0deda;
+  --ring: #08c7ba;
+
+  --chart-1: #08c7ba;
+  --chart-2: #062b49;
+  --chart-3: #3ddc97;
+  --chart-4: #f6c85f;
+  --chart-5: #ef6b6b;
+
+  --sidebar: #ffffff;
+  --sidebar-foreground: #062b49;
+  --sidebar-primary: #08c7ba;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #eef7f2;
+  --sidebar-accent-foreground: #062b49;
+  --sidebar-border: #f0deda;
+  --sidebar-ring: #08c7ba;
+}
+
+.dark {
+  --background: #0a1b2b;
+  --foreground: #ffffff;
+
+  --navy: #062b49;
+  --navy-foreground: #ffffff;
+
+  --card: #0f2438;
+  --card-foreground: #ffffff;
+  --card-soft: #103042;
+
+  --popover: #0f2438;
+  --popover-foreground: #ffffff;
+
+  --primary: #08c7ba;
+  --primary-foreground: #062b49;
+  --primary-dark: #00afa5;
+
+  --secondary: #103042;
+  --secondary-foreground: #ffffff;
+
+  --muted: #103042;
+  --muted-foreground: #9fb0be;
+
+  --accent: #103042;
+  --accent-foreground: #ffffff;
+
+  --destructive: #ef6b6b;
+  --destructive-foreground: #ffffff;
+
+  --border: rgba(255, 255, 255, 0.08);
+  --input: rgba(255, 255, 255, 0.12);
+  --ring: #08c7ba;
+
+  --sidebar: #0f2438;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #08c7ba;
+  --sidebar-primary-foreground: #062b49;
+  --sidebar-accent: #103042;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: rgba(255, 255, 255, 0.08);
+  --sidebar-ring: #08c7ba;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html,
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* ============ Minimalist scrollbars (global) ============ */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(120, 130, 140, 0.25) transparent;
+}
+*::-webkit-scrollbar { width: 4px; height: 4px; }
+*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(120, 130, 140, 0.25);
+  border-radius: 999px;
+}
+*::-webkit-scrollbar-thumb:hover { background-color: rgba(120, 130, 140, 0.45); }
+*::-webkit-scrollbar-corner { background: transparent; }
+
+.dark * {
+  scrollbar-color: rgba(255, 255, 255, 0.18) transparent;
+}
+.dark *::-webkit-scrollbar-thumb { background-color: rgba(255, 255, 255, 0.18); }
+.dark *::-webkit-scrollbar-thumb:hover { background-color: rgba(255, 255, 255, 0.32); }
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; width: 0; height: 0; }
+}
+
+/* ============ Landing page keyframes ============ */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes mockupFloat {
+  0%, 100% { transform: translateY(0) rotate(-1deg); }
+  50% { transform: translateY(-14px) rotate(1deg); }
+}
+@keyframes mockupPillFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes wordSwap {
+  0% { opacity: 0; transform: translateY(115%) rotateX(-55deg) scale(0.94); filter: blur(8px); }
+  58% { opacity: 1; filter: blur(0); }
+  100% { opacity: 1; transform: translateY(0) rotateX(0) scale(1); filter: blur(0); }
+}
+@keyframes pricePulseUp {
+  0% { transform: translateY(8px) scale(0.96); opacity: 0; }
+  60% { opacity: 1; }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+@keyframes heroReveal {
+  0% { opacity: 0; transform: translateY(22px); filter: blur(8px); }
+  100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+@keyframes heroWordPop {
+  0% { opacity: 0; transform: translateY(26px) rotateX(-45deg) scale(0.92); filter: blur(9px); }
+  70% { opacity: 1; filter: blur(0); }
+  100% { opacity: 1; transform: translateY(0) rotateX(0) scale(1); filter: blur(0); }
+}
+@keyframes heroSweep {
+  0% { background-position: 180% 50%; }
+  100% { background-position: -80% 50%; }
+}
+@keyframes heroUnderlinePulse {
+  0%, 100% { transform: scaleX(0.72); opacity: 0.42; }
+  50% { transform: scaleX(1); opacity: 0.9; }
+}
+@keyframes softTextRise {
+  0% { opacity: 0; transform: translateY(18px); filter: blur(6px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes titleGlow {
+  0%, 100% { text-shadow: 0 0 0 rgba(8, 199, 186, 0); }
+  50% { text-shadow: 0 12px 32px rgba(8, 199, 186, 0.18); }
+}
+@keyframes priceLoader {
+  0% { transform: translateX(-120%); }
+  100% { transform: translateX(220%); }
+}
+
+.hero-title {
+  animation: titleGlow 4s ease-in-out infinite;
+  letter-spacing: 0;
+  perspective: 900px;
+}
+
+.hero-title-line {
+  display: block;
+  animation: heroReveal 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-title-line-delay {
+  animation-delay: 0.12s;
+}
+
+.hero-word {
+  display: inline-block;
+  opacity: 0;
+  transform-origin: 50% 100%;
+  animation: heroWordPop 0.86s cubic-bezier(0.2, 1, 0.22, 1) forwards;
+  animation-delay: var(--word-delay);
+}
+
+
+.hero-copy,
+.hero-actions,
+.hero-note {
+  opacity: 0;
+  animation: softTextRise 0.72s cubic-bezier(0.2, 1, 0.22, 1) forwards;
+}
+
+.hero-copy { animation-delay: 760ms; }
+.hero-actions { animation-delay: 910ms; }
+.hero-note { animation-delay: 1040ms; }
+
+.animated-word-shell {
+  min-width: min(100%, 9.8em);
+  line-height: 1.02;
+  perspective: 700px;
+  border-radius: 0.18em;
+}
+
+.animated-word {
+  background: linear-gradient(90deg, var(--primary), var(--navy), var(--primary), var(--success));
+  background-size: 260% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: wordSwap 0.72s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+
+.hero-title:hover .animated-word,
+.animated-word {
+  animation-name: wordSwap, heroSweep;
+  animation-duration: 0.72s, 2.8s;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1), linear;
+  animation-fill-mode: both, both;
+  animation-iteration-count: 1, infinite;
+}
+
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  filter: blur(8px);
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform, filter;
+}
+
+.scroll-reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+/* Reveal effect is user-requested — intentionally not disabled by prefers-reduced-motion. */
+
+
+@keyframes scrollTextReveal {
+  from {
+    opacity: 0;
+    transform: translateY(34px) scale(0.98);
+    filter: blur(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+.iphone-stage {
+  width: clamp(285px, 76vw, 350px);
+  animation: mockupFloat 7s ease-in-out infinite;
+  filter: drop-shadow(0 34px 46px rgba(6, 43, 73, 0.24));
+}
+
+.iphone-frame {
+  position: relative;
+  aspect-ratio: 9 / 19.4;
+  border-radius: 54px;
+  padding: 4px;
+  background: linear-gradient(145deg, color-mix(in srgb, var(--navy) 92%, white 8%), var(--navy));
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.14),
+    inset 0 0 0 5px rgba(255, 255, 255, 0.04),
+    0 44px 90px rgba(6, 43, 73, 0.3);
+}
+
+.iphone-bezel {
+  height: 100%;
+  border-radius: 50px;
+  padding: 7px;
+  background: #061827;
+}
+
+.iphone-screen {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 43px;
+  background: linear-gradient(180deg, var(--background), var(--card-soft));
+}
+
+.iphone-island {
+  position: absolute;
+  left: 50%;
+  top: 12px;
+  z-index: 30;
+  height: 29px;
+  width: 102px;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: #05080c;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.iphone-glass {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: 43px;
+  background: linear-gradient(115deg, rgba(255,255,255,0.34) 0%, rgba(255,255,255,0.08) 18%, transparent 44%, rgba(255,255,255,0.08) 100%);
+  mix-blend-mode: soft-light;
+}
+
+.iphone-home-indicator {
+  position: absolute;
+  bottom: 9px;
+  left: 50%;
+  z-index: 20;
+  height: 4px;
+  width: 104px;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: var(--navy);
+  opacity: 0.68;
+}
+
+.iphone-button {
+  position: absolute;
+  z-index: 0;
+  width: 4px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--navy) 78%, white 22%);
+}
+
+.iphone-button-left-top { left: -3px; top: 104px; height: 34px; }
+.iphone-button-left-mid { left: -3px; top: 156px; height: 58px; }
+.iphone-button-left-low { left: -3px; top: 226px; height: 58px; }
+.iphone-button-right { right: -3px; top: 180px; height: 74px; }
+
+.price-loader > span {
+  animation: priceLoader 0.9s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
