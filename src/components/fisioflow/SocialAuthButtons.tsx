@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { toast } from "sonner";
-import { useNavigate } from "@tanstack/react-router";
-import { lovable } from "@/integrations/lovable";
+import { supabase } from "@/integrations/supabase/client";
 
 type Provider = "google" | "apple";
 
@@ -26,27 +25,34 @@ function AppleIcon() {
 
 export function SocialAuthButtons() {
   const [loading, setLoading] = useState<Provider | null>(null);
-  const navigate = useNavigate();
 
   async function handle(provider: Provider) {
     setLoading(provider);
     try {
-      const result = await lovable.auth.signInWithOAuth(provider, {
-        redirect_uri: window.location.origin,
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider,
+        options: {
+          redirectTo: `${window.location.origin}/home`,
+        },
       });
-      if (result.error) {
-        toast.error(`Não foi possível entrar com ${provider === "google" ? "Google" : "Apple"}`);
+      if (error) {
+        const msg = error.message?.toLowerCase() ?? "";
+        if (msg.includes("provider is not enabled") || msg.includes("unsupported provider")) {
+          toast.error(
+            `${provider === "google" ? "Google" : "Apple"} não está habilitado no Supabase. Ative em Authentication → Providers.`,
+          );
+        } else {
+          toast.error(`Falha no login com ${provider === "google" ? "Google" : "Apple"}: ${error.message}`);
+        }
         setLoading(null);
-        return;
       }
-      if (result.redirected) return;
-      navigate({ to: "/home" });
-    } catch {
+      // browser navigates away on success
+    } catch (e) {
       toast.error("Erro inesperado no login social");
-    } finally {
       setLoading(null);
     }
   }
+
 
   const base =
     "group relative flex h-11 flex-1 items-center justify-center gap-2 rounded-2xl border border-border/70 bg-card text-[13.5px] font-semibold text-foreground shadow-[0_1px_2px_rgba(6,43,73,0.04)] transition-all hover:border-primary/60 hover:shadow-[0_6px_20px_-10px_rgba(8,199,186,0.4)] disabled:opacity-60";
