@@ -32,11 +32,12 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const [resolved, setResolved] = useState<"light" | "dark">("light");
 
   useEffect(() => {
-    const saved = (typeof localStorage !== "undefined" && (localStorage.getItem(STORAGE_KEY) as Theme)) || "system";
-    setThemeState(saved);
-    setResolved(apply(saved));
+    const stored = typeof localStorage !== "undefined" ? (localStorage.getItem(STORAGE_KEY) as Theme | null) : null;
+    const initial: Theme = stored ?? "light";
+    setThemeState(initial);
+    setResolved(apply(initial));
 
-    if (saved === "system" && typeof window !== "undefined") {
+    if (initial === "system" && typeof window !== "undefined") {
       const mq = window.matchMedia("(prefers-color-scheme: dark)");
       const handler = () => setResolved(apply("system"));
       mq.addEventListener("change", handler);
