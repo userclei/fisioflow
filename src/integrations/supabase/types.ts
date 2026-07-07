@@ -2265,39 +2265,85 @@ export type Database = {
       }
       sticky_notes: {
         Row: {
+          category: string
           color: string | null
           content: string
           created_at: string
+          created_by: string | null
+          deleted_at: string | null
           id: string
+          is_archived: boolean
+          is_important: boolean
+          is_pinned: boolean
+          patient_id: string | null
           pinned: boolean
+          position: number
+          priority: string
+          reminder_at: string | null
+          tags: string[]
           title: string
           updated_at: string
           user_id: string
+          view_status: string
+          visibility: string
           workspace_id: string
         }
         Insert: {
+          category?: string
           color?: string | null
           content?: string
           created_at?: string
+          created_by?: string | null
+          deleted_at?: string | null
           id?: string
+          is_archived?: boolean
+          is_important?: boolean
+          is_pinned?: boolean
+          patient_id?: string | null
           pinned?: boolean
+          position?: number
+          priority?: string
+          reminder_at?: string | null
+          tags?: string[]
           title?: string
           updated_at?: string
           user_id: string
+          view_status?: string
+          visibility?: string
           workspace_id: string
         }
         Update: {
+          category?: string
           color?: string | null
           content?: string
           created_at?: string
+          created_by?: string | null
+          deleted_at?: string | null
           id?: string
+          is_archived?: boolean
+          is_important?: boolean
+          is_pinned?: boolean
+          patient_id?: string | null
           pinned?: boolean
+          position?: number
+          priority?: string
+          reminder_at?: string | null
+          tags?: string[]
           title?: string
           updated_at?: string
           user_id?: string
+          view_status?: string
+          visibility?: string
           workspace_id?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "sticky_notes_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "patients"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "sticky_notes_workspace_id_fkey"
             columns: ["workspace_id"]
