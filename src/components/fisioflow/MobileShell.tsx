@@ -14,10 +14,10 @@ export function MobileShell({
 }) {
   useRequireAuth();
   return (
-    <div className="min-h-screen w-full bg-background">
+    <div className="min-h-screen w-full bg-muted/40 dark:bg-background">
       <div
         className={cn(
-          "relative mx-auto flex min-h-screen w-full max-w-[480px] flex-col bg-background",
+          "relative mx-auto flex min-h-screen w-full max-w-[480px] flex-col bg-background md:my-6 md:min-h-[calc(100vh-3rem)] md:rounded-[32px] md:border md:border-border md:shadow-[0_30px_80px_-20px_rgba(6,43,73,0.25)] md:overflow-hidden",
           className,
         )}
         style={{

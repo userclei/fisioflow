@@ -182,6 +182,38 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+
+  /* Fluid media — jamais estoura o container em telas pequenas */
+  img,
+  video,
+  canvas,
+  svg,
+  picture {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Evita zoom automático em iOS ao focar em input <16px */
+  @media (max-width: 640px) {
+    input,
+    select,
+    textarea {
+      font-size: 16px;
+    }
+  }
+}
+
+@utility safe-px {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  @media (min-width: 640px) {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  @media (min-width: 1024px) {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
 }
 
 /* ============ Minimalist scrollbars (global) ============ */

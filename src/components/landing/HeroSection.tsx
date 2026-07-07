@@ -14,7 +14,7 @@ export function HeroSection() {
             Feito por fisio, para estudantes e fisios de verdade
           </span>
 
-          <h1 className="mt-5 text-[38px] font-black leading-[1.02] text-navy sm:text-[46px] md:text-[58px]">
+          <h1 className="mt-5 text-[30px] font-black leading-[1.05] text-navy sm:text-[42px] md:text-[52px] lg:text-[58px]">
             <span>Pare de perder paciente, prova e dinheiro por </span>
             <HighlightText highlightClassName="bg-primary/35">falta de organização</HighlightText>
             <span>. Comece a </span>
