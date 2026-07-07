@@ -32,7 +32,7 @@ export function BottomNavigation() {
       ))}
 
       {/* CRM em destaque no centro */}
-      <div className="relative -mt-8 flex flex-col items-center">
+      <div className="relative -mt-8 flex shrink-0 flex-col items-center">
         <Link
           to="/crm"
           aria-label="CRM"
@@ -74,7 +74,7 @@ function NavItem({
     <Link
       to={to}
       className={cn(
-        "flex min-w-[60px] flex-col items-center gap-1 rounded-2xl px-2 py-1.5 transition-colors",
+        "flex min-w-0 flex-1 basis-0 flex-col items-center gap-1 rounded-2xl px-1 py-1.5 transition-colors",
         active ? "text-primary" : "text-icon-muted",
       )}
     >
