@@ -18,7 +18,7 @@ function AdminSettingsPage() {
   const qc = useQueryClient();
   const { data } = useQuery({
     queryKey: ["admin-settings"],
-    queryFn: async () => (await supabase.from("admin_settings").select("*").eq("id", 1).maybeSingle()).data,
+    queryFn: async () => (await supabase.from("admin_settings").select("*").eq("key", "default").maybeSingle()).data,
   });
 
   const [form, setForm] = useState({
@@ -47,7 +47,7 @@ function AdminSettingsPage() {
 
   const save = useMutation({
     mutationFn: async () => {
-      const { error } = await supabase.from("admin_settings").update(form as never).eq("id", 1);
+      const { error } = await supabase.from("admin_settings").update(form as never).eq("key", "default");
       if (error) throw error;
     },
     onSuccess: () => { toast.success("Configurações salvas"); qc.invalidateQueries({ queryKey: ["admin-settings"] }); },

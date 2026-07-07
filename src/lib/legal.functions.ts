@@ -55,7 +55,7 @@ export const getCurrentLegalDoc = createServerFn({ method: "GET" })
     const [doc, settings] = await Promise.all([
       sb.from("legal_documents").select("*")
         .eq("kind", data.kind).eq("is_current", true).maybeSingle(),
-      sb.from("legal_settings").select("*").eq("id", 1).maybeSingle(),
+      sb.from("legal_settings").select("*").eq("key", "default").maybeSingle(),
     ]);
     if (!doc.data) return null;
     return {
