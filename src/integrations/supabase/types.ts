@@ -16,22 +16,43 @@ export type Database = {
     Tables: {
       admin_settings: {
         Row: {
+          auto_block_after_days: number
           id: string
           key: string
+          pro_monthly_price: number
+          pro_yearly_price: number
+          sandbox_enabled: boolean
+          support_email: string | null
+          support_whatsapp: string | null
           updated_at: string
           value: Json
+          webhooks_enabled: boolean
         }
         Insert: {
+          auto_block_after_days?: number
           id?: string
           key: string
+          pro_monthly_price?: number
+          pro_yearly_price?: number
+          sandbox_enabled?: boolean
+          support_email?: string | null
+          support_whatsapp?: string | null
           updated_at?: string
           value?: Json
+          webhooks_enabled?: boolean
         }
         Update: {
+          auto_block_after_days?: number
           id?: string
           key?: string
+          pro_monthly_price?: number
+          pro_yearly_price?: number
+          sandbox_enabled?: boolean
+          support_email?: string | null
+          support_whatsapp?: string | null
           updated_at?: string
           value?: Json
+          webhooks_enabled?: boolean
         }
         Relationships: []
       }
@@ -40,28 +61,34 @@ export type Database = {
           affiliate_id: string | null
           created_at: string
           id: string
+          ip: string | null
           ip_hash: string | null
           link_id: string | null
           referrer: string | null
           user_agent: string | null
+          visitor_id: string | null
         }
         Insert: {
           affiliate_id?: string | null
           created_at?: string
           id?: string
+          ip?: string | null
           ip_hash?: string | null
           link_id?: string | null
           referrer?: string | null
           user_agent?: string | null
+          visitor_id?: string | null
         }
         Update: {
           affiliate_id?: string | null
           created_at?: string
           id?: string
+          ip?: string | null
           ip_hash?: string | null
           link_id?: string | null
           referrer?: string | null
           user_agent?: string | null
+          visitor_id?: string | null
         }
         Relationships: [
           {
@@ -309,6 +336,7 @@ export type Database = {
       }
       affiliate_links: {
         Row: {
+          active: boolean
           affiliate_id: string
           campaign: string | null
           clicks: number
@@ -321,6 +349,7 @@ export type Database = {
           utm_source: string | null
         }
         Insert: {
+          active?: boolean
           affiliate_id: string
           campaign?: string | null
           clicks?: number
@@ -333,6 +362,7 @@ export type Database = {
           utm_source?: string | null
         }
         Update: {
+          active?: boolean
           affiliate_id?: string
           campaign?: string | null
           clicks?: number
@@ -632,6 +662,7 @@ export type Database = {
         Row: {
           active: boolean
           created_at: string
+          expires_at: string | null
           id: string
           identifier_type: string
           identifier_value: string
@@ -640,6 +671,7 @@ export type Database = {
         Insert: {
           active?: boolean
           created_at?: string
+          expires_at?: string | null
           id?: string
           identifier_type: string
           identifier_value: string
@@ -648,6 +680,7 @@ export type Database = {
         Update: {
           active?: boolean
           created_at?: string
+          expires_at?: string | null
           id?: string
           identifier_type?: string
           identifier_value?: string
@@ -889,15 +922,20 @@ export type Database = {
       }
       btzap_config: {
         Row: {
+          billing_automation_enabled: boolean
+          billing_days_after: number
+          billing_days_before: number
           connection_status: string
           endpoint_disconnect: string
           endpoint_qr: string
+          endpoint_send_buttons: string
           endpoint_send_text: string
           endpoint_status: string
           id: number
           instance_id: string | null
           last_check_at: string | null
           last_error: string | null
+          otp_enabled: boolean
           phone_number: string | null
           profile_name: string | null
           qr_code: string | null
@@ -907,15 +945,20 @@ export type Database = {
           webhook_secret: string | null
         }
         Insert: {
+          billing_automation_enabled?: boolean
+          billing_days_after?: number
+          billing_days_before?: number
           connection_status?: string
           endpoint_disconnect?: string
           endpoint_qr?: string
+          endpoint_send_buttons?: string
           endpoint_send_text?: string
           endpoint_status?: string
           id?: number
           instance_id?: string | null
           last_check_at?: string | null
           last_error?: string | null
+          otp_enabled?: boolean
           phone_number?: string | null
           profile_name?: string | null
           qr_code?: string | null
@@ -925,15 +968,20 @@ export type Database = {
           webhook_secret?: string | null
         }
         Update: {
+          billing_automation_enabled?: boolean
+          billing_days_after?: number
+          billing_days_before?: number
           connection_status?: string
           endpoint_disconnect?: string
           endpoint_qr?: string
+          endpoint_send_buttons?: string
           endpoint_send_text?: string
           endpoint_status?: string
           id?: number
           instance_id?: string | null
           last_check_at?: string | null
           last_error?: string | null
+          otp_enabled?: boolean
           phone_number?: string | null
           profile_name?: string | null
           qr_code?: string | null
@@ -1606,6 +1654,10 @@ export type Database = {
           description: string | null
           due_date: string
           id: string
+          notes: string | null
+          paid_at: string | null
+          payment_method: string | null
+          provider_invoice_id: string | null
           status: string
           updated_at: string
           workspace_id: string
@@ -1616,6 +1668,10 @@ export type Database = {
           description?: string | null
           due_date?: string
           id?: string
+          notes?: string | null
+          paid_at?: string | null
+          payment_method?: string | null
+          provider_invoice_id?: string | null
           status?: string
           updated_at?: string
           workspace_id: string
@@ -1626,6 +1682,10 @@ export type Database = {
           description?: string | null
           due_date?: string
           id?: string
+          notes?: string | null
+          paid_at?: string | null
+          payment_method?: string | null
+          provider_invoice_id?: string | null
           status?: string
           updated_at?: string
           workspace_id?: string
@@ -1645,35 +1705,47 @@ export type Database = {
           created_at: string
           email: string | null
           id: string
+          message: string | null
           metadata: Json
           name: string | null
           phone: string | null
           source: string | null
+          usage_type: string | null
+          whatsapp: string | null
         }
         Insert: {
           created_at?: string
           email?: string | null
           id?: string
+          message?: string | null
           metadata?: Json
           name?: string | null
           phone?: string | null
           source?: string | null
+          usage_type?: string | null
+          whatsapp?: string | null
         }
         Update: {
           created_at?: string
           email?: string | null
           id?: string
+          message?: string | null
           metadata?: Json
           name?: string | null
           phone?: string | null
           source?: string | null
+          usage_type?: string | null
+          whatsapp?: string | null
         }
         Relationships: []
       }
       legal_documents: {
         Row: {
+          changelog: string | null
           content_md: string
           created_at: string
+          created_by: string | null
+          effective_date: string | null
           id: string
           is_current: boolean
           kind: string
@@ -1681,11 +1753,15 @@ export type Database = {
           summary: string | null
           title: string
           updated_at: string
+          updated_by: string | null
           version: number
         }
         Insert: {
+          changelog?: string | null
           content_md?: string
           created_at?: string
+          created_by?: string | null
+          effective_date?: string | null
           id?: string
           is_current?: boolean
           kind: string
@@ -1693,11 +1769,15 @@ export type Database = {
           summary?: string | null
           title: string
           updated_at?: string
+          updated_by?: string | null
           version?: number
         }
         Update: {
+          changelog?: string | null
           content_md?: string
           created_at?: string
+          created_by?: string | null
+          effective_date?: string | null
           id?: string
           is_current?: boolean
           kind?: string
@@ -1705,28 +1785,71 @@ export type Database = {
           summary?: string | null
           title?: string
           updated_at?: string
+          updated_by?: string | null
           version?: number
         }
         Relationships: []
       }
       legal_settings: {
         Row: {
+          address: string | null
+          city: string | null
+          cnpj: string | null
+          company_name: string
+          contact_email: string | null
+          contact_phone: string | null
+          country: string
+          dpo_email: string | null
+          dpo_name: string | null
           id: string
+          jurisdiction: string
           key: string
+          legal_name: string | null
+          state: string | null
           updated_at: string
           value: Json
+          website_url: string | null
+          zip: string | null
         }
         Insert: {
+          address?: string | null
+          city?: string | null
+          cnpj?: string | null
+          company_name?: string
+          contact_email?: string | null
+          contact_phone?: string | null
+          country?: string
+          dpo_email?: string | null
+          dpo_name?: string | null
           id?: string
+          jurisdiction?: string
           key: string
+          legal_name?: string | null
+          state?: string | null
           updated_at?: string
           value?: Json
+          website_url?: string | null
+          zip?: string | null
         }
         Update: {
+          address?: string | null
+          city?: string | null
+          cnpj?: string | null
+          company_name?: string
+          contact_email?: string | null
+          contact_phone?: string | null
+          country?: string
+          dpo_email?: string | null
+          dpo_name?: string | null
           id?: string
+          jurisdiction?: string
           key?: string
+          legal_name?: string | null
+          state?: string | null
           updated_at?: string
           value?: Json
+          website_url?: string | null
+          zip?: string | null
         }
         Relationships: []
       }
@@ -1989,6 +2112,7 @@ export type Database = {
         Row: {
           active: boolean
           created_at: string
+          description: string | null
           id: string
           pattern: string
           severity: string
@@ -1996,6 +2120,7 @@ export type Database = {
         Insert: {
           active?: boolean
           created_at?: string
+          description?: string | null
           id?: string
           pattern: string
           severity?: string
@@ -2003,6 +2128,7 @@ export type Database = {
         Update: {
           active?: boolean
           created_at?: string
+          description?: string | null
           id?: string
           pattern?: string
           severity?: string
@@ -2013,6 +2139,7 @@ export type Database = {
         Row: {
           active: boolean
           created_at: string
+          description: string | null
           id: string
           key: string
           limit_count: number
@@ -2021,6 +2148,7 @@ export type Database = {
         Insert: {
           active?: boolean
           created_at?: string
+          description?: string | null
           id?: string
           key: string
           limit_count?: number
@@ -2029,6 +2157,7 @@ export type Database = {
         Update: {
           active?: boolean
           created_at?: string
+          description?: string | null
           id?: string
           key?: string
           limit_count?: number
@@ -2045,6 +2174,8 @@ export type Database = {
           ip_hash: string | null
           metadata: Json
           severity: string
+          user_id: string | null
+          workspace_id: string | null
         }
         Insert: {
           actor_user_id?: string | null
@@ -2054,6 +2185,8 @@ export type Database = {
           ip_hash?: string | null
           metadata?: Json
           severity?: string
+          user_id?: string | null
+          workspace_id?: string | null
         }
         Update: {
           actor_user_id?: string | null
@@ -2063,8 +2196,18 @@ export type Database = {
           ip_hash?: string | null
           metadata?: Json
           severity?: string
+          user_id?: string | null
+          workspace_id?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "security_events_workspace_id_fkey"
+            columns: ["workspace_id"]
+            isOneToOne: false
+            referencedRelation: "workspaces"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       security_incidents: {
         Row: {
@@ -2072,6 +2215,7 @@ export type Database = {
           description: string | null
           id: string
           metadata: Json
+          resolved_at: string | null
           severity: string
           status: string
           title: string
@@ -2082,6 +2226,7 @@ export type Database = {
           description?: string | null
           id?: string
           metadata?: Json
+          resolved_at?: string | null
           severity?: string
           status?: string
           title: string
@@ -2092,6 +2237,7 @@ export type Database = {
           description?: string | null
           id?: string
           metadata?: Json
+          resolved_at?: string | null
           severity?: string
           status?: string
           title?: string
@@ -2383,10 +2529,12 @@ export type Database = {
       }
       webhook_deliveries: {
         Row: {
+          attempts: number
           created_at: string
           error: string | null
           event_type: string | null
           id: string
+          next_retry_at: string | null
           payload: Json
           response_body: string | null
           response_status: number | null
@@ -2394,10 +2542,12 @@ export type Database = {
           webhook_id: string | null
         }
         Insert: {
+          attempts?: number
           created_at?: string
           error?: string | null
           event_type?: string | null
           id?: string
+          next_retry_at?: string | null
           payload?: Json
           response_body?: string | null
           response_status?: number | null
@@ -2405,10 +2555,12 @@ export type Database = {
           webhook_id?: string | null
         }
         Update: {
+          attempts?: number
           created_at?: string
           error?: string | null
           event_type?: string | null
           id?: string
+          next_retry_at?: string | null
           payload?: Json
           response_body?: string | null
           response_status?: number | null
@@ -2429,30 +2581,36 @@ export type Database = {
         Row: {
           active: boolean
           created_at: string
+          description: string | null
           events: string[]
           id: string
           name: string
           secret: string | null
+          status: string
           updated_at: string
           url: string
         }
         Insert: {
           active?: boolean
           created_at?: string
+          description?: string | null
           events?: string[]
           id?: string
           name: string
           secret?: string | null
+          status?: string
           updated_at?: string
           url: string
         }
         Update: {
           active?: boolean
           created_at?: string
+          description?: string | null
           events?: string[]
           id?: string
           name?: string
           secret?: string | null
+          status?: string
           updated_at?: string
           url?: string
         }
@@ -2464,11 +2622,16 @@ export type Database = {
           created_at: string
           created_by: string | null
           error: string | null
+          external_id: string | null
+          failed_at: string | null
           id: string
+          metadata: Json
           provider_response: Json | null
           related_id: string | null
           related_type: string | null
+          sent_at: string | null
           status: string
+          template: string | null
           to_number: string
           updated_at: string
           workspace_id: string | null
@@ -2478,11 +2641,16 @@ export type Database = {
           created_at?: string
           created_by?: string | null
           error?: string | null
+          external_id?: string | null
+          failed_at?: string | null
           id?: string
+          metadata?: Json
           provider_response?: Json | null
           related_id?: string | null
           related_type?: string | null
+          sent_at?: string | null
           status?: string
+          template?: string | null
           to_number: string
           updated_at?: string
           workspace_id?: string | null
@@ -2492,11 +2660,16 @@ export type Database = {
           created_at?: string
           created_by?: string | null
           error?: string | null
+          external_id?: string | null
+          failed_at?: string | null
           id?: string
+          metadata?: Json
           provider_response?: Json | null
           related_id?: string | null
           related_type?: string | null
+          sent_at?: string | null
           status?: string
+          template?: string | null
           to_number?: string
           updated_at?: string
           workspace_id?: string | null
@@ -2519,16 +2692,24 @@ export type Database = {
           created_at: string
           expires_at: string
           id: string
+          max_attempts: number
           phone: string
+          purpose: string
+          used_at: string | null
+          user_id: string | null
         }
         Insert: {
           attempts?: number
           code_hash: string
           consumed_at?: string | null
           created_at?: string
-          expires_at: string
+          expires_at?: string
           id?: string
+          max_attempts?: number
           phone: string
+          purpose?: string
+          used_at?: string | null
+          user_id?: string | null
         }
         Update: {
           attempts?: number
@@ -2537,7 +2718,11 @@ export type Database = {
           created_at?: string
           expires_at?: string
           id?: string
+          max_attempts?: number
           phone?: string
+          purpose?: string
+          used_at?: string | null
+          user_id?: string | null
         }
         Relationships: []
       }
