@@ -35,11 +35,11 @@ export const Route = createFileRoute("/api/public/ref/$code")({
         const ip = request.headers.get("x-forwarded-for")?.split(",")[0].trim()
           || request.headers.get("cf-connecting-ip") || null;
         const ua = request.headers.get("user-agent") || null;
-        const referer = request.headers.get("referer") || null;
+        const referrer = request.headers.get("referer") || null;
 
         // Registra clique (fire-and-forget)
         await supabaseAdmin.from("affiliate_clicks").insert({
-          affiliate_id: aff.id, link_id: linkId, ip, user_agent: ua, referer, visitor_id: visitorId,
+          affiliate_id: aff.id, link_id: linkId, ip, user_agent: ua, referrer, visitor_id: visitorId,
         });
 
         // Monta URL de destino (pode ser absoluta ou relativa)
