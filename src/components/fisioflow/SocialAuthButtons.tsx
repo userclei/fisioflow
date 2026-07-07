@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { toast } from "sonner";
-import { useNavigate } from "@tanstack/react-router";
-import { lovable } from "@/integrations/lovable";
+import { supabase } from "@/integrations/supabase/client";
 
 type Provider = "google" | "apple";
 
@@ -26,27 +25,34 @@ function AppleIcon() {
 
 export function SocialAuthButtons() {
   const [loading, setLoading] = useState<Provider | null>(null);
-  const navigate = useNavigate();
 
   async function handle(provider: Provider) {
     setLoading(provider);
     try {
-      const result = await lovable.auth.signInWithOAuth(provider, {
-        redirect_uri: window.location.origin,
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider,
+        options: {
+          redirectTo: `${window.location.origin}/home`,
+        },
       });
-      if (result.error) {
-        toast.error(`Não foi possível entrar com ${provider === "google" ? "Google" : "Apple"}`);
+      if (error) {
+        const msg = error.message?.toLowerCase() ?? "";
+        if (msg.includes("provider is not enabled") || msg.includes("unsupported provider")) {
+          toast.error(
+            `${provider === "google" ? "Google" : "Apple"} não está habilitado. Ative em Cloud → Users → Auth Settings → Sign In Methods.`,
+          );
+        } else {
+          toast.error(`Falha no login com ${provider === "google" ? "Google" : "Apple"}: ${error.message}`);
+        }
         setLoading(null);
-        return;
       }
-      if (result.redirected) return;
-      navigate({ to: "/home" });
+      // On success the browser navigates away to the provider.
     } catch {
       toast.error("Erro inesperado no login social");
-    } finally {
       setLoading(null);
     }
   }
+
 
 
 
