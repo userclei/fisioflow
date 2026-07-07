@@ -16,138 +16,52 @@ export type Database = {
     Tables: {
       admin_settings: {
         Row: {
-          auto_block_after_days: number
-          created_at: string
-          id: number
-          pro_monthly_price: number
-          pro_yearly_price: number
-          sandbox_enabled: boolean
-          support_email: string | null
-          support_whatsapp: string | null
+          id: string
+          key: string
           updated_at: string
-          webhooks_enabled: boolean
+          value: Json
         }
         Insert: {
-          auto_block_after_days?: number
-          created_at?: string
-          id?: number
-          pro_monthly_price?: number
-          pro_yearly_price?: number
-          sandbox_enabled?: boolean
-          support_email?: string | null
-          support_whatsapp?: string | null
+          id?: string
+          key: string
           updated_at?: string
-          webhooks_enabled?: boolean
+          value?: Json
         }
         Update: {
-          auto_block_after_days?: number
-          created_at?: string
-          id?: number
-          pro_monthly_price?: number
-          pro_yearly_price?: number
-          sandbox_enabled?: boolean
-          support_email?: string | null
-          support_whatsapp?: string | null
+          id?: string
+          key?: string
           updated_at?: string
-          webhooks_enabled?: boolean
+          value?: Json
         }
         Relationships: []
       }
-      affiliate_assets: {
-        Row: {
-          active: boolean
-          affiliate_id: string | null
-          content: string | null
-          created_at: string
-          description: string | null
-          id: string
-          kind: string
-          tags: string[] | null
-          title: string
-          updated_at: string
-          url: string | null
-        }
-        Insert: {
-          active?: boolean
-          affiliate_id?: string | null
-          content?: string | null
-          created_at?: string
-          description?: string | null
-          id?: string
-          kind?: string
-          tags?: string[] | null
-          title: string
-          updated_at?: string
-          url?: string | null
-        }
-        Update: {
-          active?: boolean
-          affiliate_id?: string | null
-          content?: string | null
-          created_at?: string
-          description?: string | null
-          id?: string
-          kind?: string
-          tags?: string[] | null
-          title?: string
-          updated_at?: string
-          url?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "affiliate_assets_affiliate_id_fkey"
-            columns: ["affiliate_id"]
-            isOneToOne: false
-            referencedRelation: "affiliates"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
       affiliate_clicks: {
         Row: {
-          affiliate_id: string
-          city: string | null
-          country: string | null
+          affiliate_id: string | null
           created_at: string
-          device: string | null
-          fingerprint: string | null
           id: string
-          ip: string | null
+          ip_hash: string | null
           link_id: string | null
-          metadata: Json
-          referer: string | null
+          referrer: string | null
           user_agent: string | null
-          visitor_id: string | null
         }
         Insert: {
-          affiliate_id: string
-          city?: string | null
-          country?: string | null
+          affiliate_id?: string | null
           created_at?: string
-          device?: string | null
-          fingerprint?: string | null
           id?: string
-          ip?: string | null
+          ip_hash?: string | null
           link_id?: string | null
-          metadata?: Json
-          referer?: string | null
+          referrer?: string | null
           user_agent?: string | null
-          visitor_id?: string | null
         }
         Update: {
-          affiliate_id?: string
-          city?: string | null
-          country?: string | null
+          affiliate_id?: string | null
           created_at?: string
-          device?: string | null
-          fingerprint?: string | null
           id?: string
-          ip?: string | null
+          ip_hash?: string | null
           link_id?: string | null
-          metadata?: Json
-          referer?: string | null
+          referrer?: string | null
           user_agent?: string | null
-          visitor_id?: string | null
         }
         Relationships: [
           {
@@ -169,47 +83,41 @@ export type Database = {
       affiliate_commission_rules: {
         Row: {
           active: boolean
-          affiliate_type: Database["public"]["Enums"]["affiliate_type"] | null
+          affiliate_type: string | null
+          commission_fixed: number | null
+          commission_pct: number | null
+          cookie_days: number | null
           created_at: string
-          fixed_amount: number | null
           id: string
-          max_recurrence_months: number | null
           name: string
-          percent: number | null
-          plan: string | null
           priority: number
-          recurring: boolean
-          tier: Database["public"]["Enums"]["affiliate_tier"] | null
+          tier: string | null
           updated_at: string
         }
         Insert: {
           active?: boolean
-          affiliate_type?: Database["public"]["Enums"]["affiliate_type"] | null
+          affiliate_type?: string | null
+          commission_fixed?: number | null
+          commission_pct?: number | null
+          cookie_days?: number | null
           created_at?: string
-          fixed_amount?: number | null
           id?: string
-          max_recurrence_months?: number | null
           name: string
-          percent?: number | null
-          plan?: string | null
           priority?: number
-          recurring?: boolean
-          tier?: Database["public"]["Enums"]["affiliate_tier"] | null
+          tier?: string | null
           updated_at?: string
         }
         Update: {
           active?: boolean
-          affiliate_type?: Database["public"]["Enums"]["affiliate_type"] | null
+          affiliate_type?: string | null
+          commission_fixed?: number | null
+          commission_pct?: number | null
+          cookie_days?: number | null
           created_at?: string
-          fixed_amount?: number | null
           id?: string
-          max_recurrence_months?: number | null
           name?: string
-          percent?: number | null
-          plan?: string | null
           priority?: number
-          recurring?: boolean
-          tier?: Database["public"]["Enums"]["affiliate_tier"] | null
+          tier?: string | null
           updated_at?: string
         }
         Relationships: []
@@ -219,49 +127,34 @@ export type Database = {
           affiliate_id: string
           amount: number
           available_at: string | null
-          base_amount: number | null
           conversion_id: string | null
           created_at: string
           id: string
-          metadata: Json
-          notes: string | null
           paid_at: string | null
           payout_id: string | null
-          rule_id: string | null
-          status: Database["public"]["Enums"]["commission_status"]
-          updated_at: string
+          status: string
         }
         Insert: {
           affiliate_id: string
           amount?: number
           available_at?: string | null
-          base_amount?: number | null
           conversion_id?: string | null
           created_at?: string
           id?: string
-          metadata?: Json
-          notes?: string | null
           paid_at?: string | null
           payout_id?: string | null
-          rule_id?: string | null
-          status?: Database["public"]["Enums"]["commission_status"]
-          updated_at?: string
+          status?: string
         }
         Update: {
           affiliate_id?: string
           amount?: number
           available_at?: string | null
-          base_amount?: number | null
           conversion_id?: string | null
           created_at?: string
           id?: string
-          metadata?: Json
-          notes?: string | null
           paid_at?: string | null
           payout_id?: string | null
-          rule_id?: string | null
-          status?: Database["public"]["Enums"]["commission_status"]
-          updated_at?: string
+          status?: string
         }
         Relationships: [
           {
@@ -279,14 +172,7 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "affiliate_commissions_rule_id_fkey"
-            columns: ["rule_id"]
-            isOneToOne: false
-            referencedRelation: "affiliate_commission_rules"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "fk_commission_payout"
+            foreignKeyName: "affiliate_commissions_payout_fk"
             columns: ["payout_id"]
             isOneToOne: false
             referencedRelation: "affiliate_payouts"
@@ -296,57 +182,30 @@ export type Database = {
       }
       affiliate_conversions: {
         Row: {
-          affiliate_id: string
+          affiliate_id: string | null
           amount: number
-          attribution_model: Database["public"]["Enums"]["attribution_model"]
-          coupon_code: string | null
           created_at: string
           id: string
-          invoice_id: string | null
-          lead_id: string | null
           metadata: Json
-          paid_at: string | null
-          plan: string
-          refunded_at: string | null
-          status: Database["public"]["Enums"]["conversion_status"]
-          subscription_id: string | null
-          updated_at: string
+          status: string
           workspace_id: string | null
         }
         Insert: {
-          affiliate_id: string
+          affiliate_id?: string | null
           amount?: number
-          attribution_model?: Database["public"]["Enums"]["attribution_model"]
-          coupon_code?: string | null
           created_at?: string
           id?: string
-          invoice_id?: string | null
-          lead_id?: string | null
           metadata?: Json
-          paid_at?: string | null
-          plan: string
-          refunded_at?: string | null
-          status?: Database["public"]["Enums"]["conversion_status"]
-          subscription_id?: string | null
-          updated_at?: string
+          status?: string
           workspace_id?: string | null
         }
         Update: {
-          affiliate_id?: string
+          affiliate_id?: string | null
           amount?: number
-          attribution_model?: Database["public"]["Enums"]["attribution_model"]
-          coupon_code?: string | null
           created_at?: string
           id?: string
-          invoice_id?: string | null
-          lead_id?: string | null
           metadata?: Json
-          paid_at?: string | null
-          plan?: string
-          refunded_at?: string | null
-          status?: Database["public"]["Enums"]["conversion_status"]
-          subscription_id?: string | null
-          updated_at?: string
+          status?: string
           workspace_id?: string | null
         }
         Relationships: [
@@ -355,27 +214,6 @@ export type Database = {
             columns: ["affiliate_id"]
             isOneToOne: false
             referencedRelation: "affiliates"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "affiliate_conversions_invoice_id_fkey"
-            columns: ["invoice_id"]
-            isOneToOne: false
-            referencedRelation: "invoices"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "affiliate_conversions_lead_id_fkey"
-            columns: ["lead_id"]
-            isOneToOne: false
-            referencedRelation: "affiliate_leads"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "affiliate_conversions_subscription_id_fkey"
-            columns: ["subscription_id"]
-            isOneToOne: false
-            referencedRelation: "subscriptions"
             referencedColumns: ["id"]
           },
           {
@@ -391,47 +229,32 @@ export type Database = {
         Row: {
           active: boolean
           affiliate_id: string
-          applicable_plans: string[] | null
           code: string
           created_at: string
           discount_type: string
           discount_value: number
+          expires_at: string | null
           id: string
-          max_uses: number | null
-          updated_at: string
-          uses_count: number
-          valid_from: string | null
-          valid_until: string | null
         }
         Insert: {
           active?: boolean
           affiliate_id: string
-          applicable_plans?: string[] | null
           code: string
           created_at?: string
           discount_type?: string
           discount_value?: number
+          expires_at?: string | null
           id?: string
-          max_uses?: number | null
-          updated_at?: string
-          uses_count?: number
-          valid_from?: string | null
-          valid_until?: string | null
         }
         Update: {
           active?: boolean
           affiliate_id?: string
-          applicable_plans?: string[] | null
           code?: string
           created_at?: string
           discount_type?: string
           discount_value?: number
+          expires_at?: string | null
           id?: string
-          max_uses?: number | null
-          updated_at?: string
-          uses_count?: number
-          valid_from?: string | null
-          valid_until?: string | null
         }
         Relationships: [
           {
@@ -445,49 +268,34 @@ export type Database = {
       }
       affiliate_leads: {
         Row: {
-          affiliate_id: string
-          attribution_model: Database["public"]["Enums"]["attribution_model"]
-          auth_user_id: string | null
-          click_id: string | null
-          coupon_code: string | null
+          affiliate_id: string | null
           created_at: string
           email: string | null
           id: string
-          link_id: string | null
           metadata: Json
           name: string | null
           phone: string | null
-          workspace_id: string | null
+          status: string
         }
         Insert: {
-          affiliate_id: string
-          attribution_model?: Database["public"]["Enums"]["attribution_model"]
-          auth_user_id?: string | null
-          click_id?: string | null
-          coupon_code?: string | null
+          affiliate_id?: string | null
           created_at?: string
           email?: string | null
           id?: string
-          link_id?: string | null
           metadata?: Json
           name?: string | null
           phone?: string | null
-          workspace_id?: string | null
+          status?: string
         }
         Update: {
-          affiliate_id?: string
-          attribution_model?: Database["public"]["Enums"]["attribution_model"]
-          auth_user_id?: string | null
-          click_id?: string | null
-          coupon_code?: string | null
+          affiliate_id?: string | null
           created_at?: string
           email?: string | null
           id?: string
-          link_id?: string | null
           metadata?: Json
           name?: string | null
           phone?: string | null
-          workspace_id?: string | null
+          status?: string
         }
         Relationships: [
           {
@@ -497,83 +305,44 @@ export type Database = {
             referencedRelation: "affiliates"
             referencedColumns: ["id"]
           },
-          {
-            foreignKeyName: "affiliate_leads_click_id_fkey"
-            columns: ["click_id"]
-            isOneToOne: false
-            referencedRelation: "affiliate_clicks"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "affiliate_leads_link_id_fkey"
-            columns: ["link_id"]
-            isOneToOne: false
-            referencedRelation: "affiliate_links"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "affiliate_leads_workspace_id_fkey"
-            columns: ["workspace_id"]
-            isOneToOne: false
-            referencedRelation: "workspaces"
-            referencedColumns: ["id"]
-          },
         ]
       }
       affiliate_links: {
         Row: {
-          active: boolean
           affiliate_id: string
           campaign: string | null
-          clicks_count: number
-          conversions_count: number
+          clicks: number
           created_at: string
           destination_url: string
           id: string
-          leads_count: number
           slug: string
-          updated_at: string
           utm_campaign: string | null
-          utm_content: string | null
           utm_medium: string | null
           utm_source: string | null
-          utm_term: string | null
         }
         Insert: {
-          active?: boolean
           affiliate_id: string
           campaign?: string | null
-          clicks_count?: number
-          conversions_count?: number
+          clicks?: number
           created_at?: string
           destination_url?: string
           id?: string
-          leads_count?: number
           slug: string
-          updated_at?: string
           utm_campaign?: string | null
-          utm_content?: string | null
           utm_medium?: string | null
           utm_source?: string | null
-          utm_term?: string | null
         }
         Update: {
-          active?: boolean
           affiliate_id?: string
           campaign?: string | null
-          clicks_count?: number
-          conversions_count?: number
+          clicks?: number
           created_at?: string
           destination_url?: string
           id?: string
-          leads_count?: number
           slug?: string
-          updated_at?: string
           utm_campaign?: string | null
-          utm_content?: string | null
           utm_medium?: string | null
           utm_source?: string | null
-          utm_term?: string | null
         }
         Relationships: [
           {
@@ -629,46 +398,37 @@ export type Database = {
           affiliate_id: string
           created_at: string
           id: string
-          metadata: Json
-          method: Database["public"]["Enums"]["payout_method"]
-          notes: string | null
+          method: string
           paid_at: string | null
           paid_by: string | null
           receipt_url: string | null
           reference: string | null
-          status: Database["public"]["Enums"]["payout_status"]
+          status: string
           total_amount: number
-          updated_at: string
         }
         Insert: {
           affiliate_id: string
           created_at?: string
           id?: string
-          metadata?: Json
-          method?: Database["public"]["Enums"]["payout_method"]
-          notes?: string | null
+          method?: string
           paid_at?: string | null
           paid_by?: string | null
           receipt_url?: string | null
           reference?: string | null
-          status?: Database["public"]["Enums"]["payout_status"]
+          status?: string
           total_amount?: number
-          updated_at?: string
         }
         Update: {
           affiliate_id?: string
           created_at?: string
           id?: string
-          metadata?: Json
-          method?: Database["public"]["Enums"]["payout_method"]
-          notes?: string | null
+          method?: string
           paid_at?: string | null
           paid_by?: string | null
           receipt_url?: string | null
           reference?: string | null
-          status?: Database["public"]["Enums"]["payout_status"]
+          status?: string
           total_amount?: number
-          updated_at?: string
         }
         Relationships: [
           {
@@ -684,8 +444,6 @@ export type Database = {
         Row: {
           approved_at: string | null
           approved_by: string | null
-          auth_user_id: string | null
-          bank_info: Json | null
           cookie_days: number
           created_at: string
           custom_commission_fixed: number | null
@@ -694,25 +452,22 @@ export type Database = {
           email: string
           id: string
           instagram: string | null
-          metadata: Json
           name: string
           notes: string | null
           phone: string | null
           pix_key: string | null
           pix_key_type: string | null
-          slug: string
-          status: Database["public"]["Enums"]["affiliate_status"]
+          slug: string | null
+          status: string
           suspended_at: string | null
-          tier: Database["public"]["Enums"]["affiliate_tier"]
-          type: Database["public"]["Enums"]["affiliate_type"]
+          tier: string
+          type: string
           updated_at: string
           website: string | null
         }
         Insert: {
           approved_at?: string | null
           approved_by?: string | null
-          auth_user_id?: string | null
-          bank_info?: Json | null
           cookie_days?: number
           created_at?: string
           custom_commission_fixed?: number | null
@@ -721,25 +476,22 @@ export type Database = {
           email: string
           id?: string
           instagram?: string | null
-          metadata?: Json
           name: string
           notes?: string | null
           phone?: string | null
           pix_key?: string | null
           pix_key_type?: string | null
-          slug: string
-          status?: Database["public"]["Enums"]["affiliate_status"]
+          slug?: string | null
+          status?: string
           suspended_at?: string | null
-          tier?: Database["public"]["Enums"]["affiliate_tier"]
-          type?: Database["public"]["Enums"]["affiliate_type"]
+          tier?: string
+          type?: string
           updated_at?: string
           website?: string | null
         }
         Update: {
           approved_at?: string | null
           approved_by?: string | null
-          auth_user_id?: string | null
-          bank_info?: Json | null
           cookie_days?: number
           created_at?: string
           custom_commission_fixed?: number | null
@@ -748,17 +500,16 @@ export type Database = {
           email?: string
           id?: string
           instagram?: string | null
-          metadata?: Json
           name?: string
           notes?: string | null
           phone?: string | null
           pix_key?: string | null
           pix_key_type?: string | null
-          slug?: string
-          status?: Database["public"]["Enums"]["affiliate_status"]
+          slug?: string | null
+          status?: string
           suspended_at?: string | null
-          tier?: Database["public"]["Enums"]["affiliate_tier"]
-          type?: Database["public"]["Enums"]["affiliate_type"]
+          tier?: string
+          type?: string
           updated_at?: string
           website?: string | null
         }
@@ -843,7 +594,7 @@ export type Database = {
           new_data: Json | null
           old_data: Json | null
           user_id: string | null
-          workspace_id: string
+          workspace_id: string | null
         }
         Insert: {
           action: string
@@ -854,7 +605,7 @@ export type Database = {
           new_data?: Json | null
           old_data?: Json | null
           user_id?: string | null
-          workspace_id: string
+          workspace_id?: string | null
         }
         Update: {
           action?: string
@@ -865,7 +616,7 @@ export type Database = {
           new_data?: Json | null
           old_data?: Json | null
           user_id?: string | null
-          workspace_id?: string
+          workspace_id?: string | null
         }
         Relationships: [
           {
@@ -879,40 +630,28 @@ export type Database = {
       }
       blocked_identifiers: {
         Row: {
-          blocked_until: string | null
+          active: boolean
           created_at: string
-          created_by: string | null
           id: string
-          is_permanent: boolean
-          reason: string
-          severity: string
-          type: string
-          value_hash: string
-          value_masked: string
+          identifier_type: string
+          identifier_value: string
+          reason: string | null
         }
         Insert: {
-          blocked_until?: string | null
+          active?: boolean
           created_at?: string
-          created_by?: string | null
           id?: string
-          is_permanent?: boolean
-          reason?: string
-          severity?: string
-          type: string
-          value_hash: string
-          value_masked: string
+          identifier_type: string
+          identifier_value: string
+          reason?: string | null
         }
         Update: {
-          blocked_until?: string | null
+          active?: boolean
           created_at?: string
-          created_by?: string | null
           id?: string
-          is_permanent?: boolean
-          reason?: string
-          severity?: string
-          type?: string
-          value_hash?: string
-          value_masked?: string
+          identifier_type?: string
+          identifier_value?: string
+          reason?: string | null
         }
         Relationships: []
       }
@@ -948,7 +687,7 @@ export type Database = {
           slug: string
           start_time?: string
           timezone?: string
-          title?: string
+          title: string
           updated_at?: string
           working_days?: number[]
           workspace_id: string
@@ -983,73 +722,53 @@ export type Database = {
       }
       booking_requests: {
         Row: {
-          appointment_id: string | null
           booking_link_id: string
           created_at: string
           duration_min: number
           id: string
           lead_email: string | null
-          lead_id: string | null
           lead_name: string
           lead_phone: string | null
           notes: string | null
           owner_user_id: string
           scheduled_at: string
-          status: Database["public"]["Enums"]["booking_status"]
+          status: string
           workspace_id: string
         }
         Insert: {
-          appointment_id?: string | null
           booking_link_id: string
           created_at?: string
-          duration_min: number
+          duration_min?: number
           id?: string
           lead_email?: string | null
-          lead_id?: string | null
           lead_name: string
           lead_phone?: string | null
           notes?: string | null
           owner_user_id: string
           scheduled_at: string
-          status?: Database["public"]["Enums"]["booking_status"]
+          status?: string
           workspace_id: string
         }
         Update: {
-          appointment_id?: string | null
           booking_link_id?: string
           created_at?: string
           duration_min?: number
           id?: string
           lead_email?: string | null
-          lead_id?: string | null
           lead_name?: string
           lead_phone?: string | null
           notes?: string | null
           owner_user_id?: string
           scheduled_at?: string
-          status?: Database["public"]["Enums"]["booking_status"]
+          status?: string
           workspace_id?: string
         }
         Relationships: [
-          {
-            foreignKeyName: "booking_requests_appointment_id_fkey"
-            columns: ["appointment_id"]
-            isOneToOne: false
-            referencedRelation: "appointments"
-            referencedColumns: ["id"]
-          },
           {
             foreignKeyName: "booking_requests_booking_link_id_fkey"
             columns: ["booking_link_id"]
             isOneToOne: false
             referencedRelation: "booking_links"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "booking_requests_lead_id_fkey"
-            columns: ["lead_id"]
-            isOneToOne: false
-            referencedRelation: "crm_leads"
             referencedColumns: ["id"]
           },
           {
@@ -1063,32 +782,32 @@ export type Database = {
       }
       broadcast_deliveries: {
         Row: {
-          broadcast_id: string
+          broadcast_id: string | null
+          created_at: string
           error: string | null
           id: string
           phone: string | null
           rendered_body: string | null
-          sent_at: string
           status: string
           workspace_id: string | null
         }
         Insert: {
-          broadcast_id: string
+          broadcast_id?: string | null
+          created_at?: string
           error?: string | null
           id?: string
           phone?: string | null
           rendered_body?: string | null
-          sent_at?: string
           status?: string
           workspace_id?: string | null
         }
         Update: {
-          broadcast_id?: string
+          broadcast_id?: string | null
+          created_at?: string
           error?: string | null
           id?: string
           phone?: string | null
           rendered_body?: string | null
-          sent_at?: string
           status?: string
           workspace_id?: string | null
         }
@@ -1098,6 +817,13 @@ export type Database = {
             columns: ["broadcast_id"]
             isOneToOne: false
             referencedRelation: "broadcasts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "broadcast_deliveries_workspace_id_fkey"
+            columns: ["workspace_id"]
+            isOneToOne: false
+            referencedRelation: "workspaces"
             referencedColumns: ["id"]
           },
         ]
@@ -1163,22 +889,15 @@ export type Database = {
       }
       btzap_config: {
         Row: {
-          billing_automation_enabled: boolean
-          billing_days_after: number
-          billing_days_before: number
           connection_status: string
-          created_at: string
           endpoint_disconnect: string
           endpoint_qr: string
-          endpoint_send_buttons: string
-          endpoint_send_template: string
           endpoint_send_text: string
           endpoint_status: string
           id: number
           instance_id: string | null
           last_check_at: string | null
           last_error: string | null
-          otp_enabled: boolean
           phone_number: string | null
           profile_name: string | null
           qr_code: string | null
@@ -1188,22 +907,15 @@ export type Database = {
           webhook_secret: string | null
         }
         Insert: {
-          billing_automation_enabled?: boolean
-          billing_days_after?: number
-          billing_days_before?: number
           connection_status?: string
-          created_at?: string
           endpoint_disconnect?: string
           endpoint_qr?: string
-          endpoint_send_buttons?: string
-          endpoint_send_template?: string
           endpoint_send_text?: string
           endpoint_status?: string
           id?: number
           instance_id?: string | null
           last_check_at?: string | null
           last_error?: string | null
-          otp_enabled?: boolean
           phone_number?: string | null
           profile_name?: string | null
           qr_code?: string | null
@@ -1213,22 +925,15 @@ export type Database = {
           webhook_secret?: string | null
         }
         Update: {
-          billing_automation_enabled?: boolean
-          billing_days_after?: number
-          billing_days_before?: number
           connection_status?: string
-          created_at?: string
           endpoint_disconnect?: string
           endpoint_qr?: string
-          endpoint_send_buttons?: string
-          endpoint_send_template?: string
           endpoint_send_text?: string
           endpoint_status?: string
           id?: number
           instance_id?: string | null
           last_check_at?: string | null
           last_error?: string | null
-          otp_enabled?: boolean
           phone_number?: string | null
           profile_name?: string | null
           qr_code?: string | null
@@ -1256,7 +961,7 @@ export type Database = {
           workspace_id: string
         }
         Insert: {
-          amount: number
+          amount?: number
           created_at?: string
           created_by: string
           description: string
@@ -1363,28 +1068,28 @@ export type Database = {
         Row: {
           content: string
           created_at: string
-          created_by: string | null
+          created_by: string
           id: string
           lead_id: string
-          type: Database["public"]["Enums"]["crm_activity_type"]
+          type: string
           workspace_id: string
         }
         Insert: {
           content: string
           created_at?: string
-          created_by?: string | null
+          created_by: string
           id?: string
           lead_id: string
-          type?: Database["public"]["Enums"]["crm_activity_type"]
+          type: string
           workspace_id: string
         }
         Update: {
           content?: string
           created_at?: string
-          created_by?: string | null
+          created_by?: string
           id?: string
           lead_id?: string
-          type?: Database["public"]["Enums"]["crm_activity_type"]
+          type?: string
           workspace_id?: string
         }
         Relationships: [
@@ -1414,10 +1119,9 @@ export type Database = {
           next_action_at: string | null
           notes: string | null
           owner_user_id: string | null
-          patient_id: string | null
           phone: string | null
-          source: Database["public"]["Enums"]["crm_source"]
-          stage: Database["public"]["Enums"]["crm_stage"]
+          source: string | null
+          stage: string
           tags: string[]
           updated_at: string
           value_cents: number
@@ -1432,10 +1136,9 @@ export type Database = {
           next_action_at?: string | null
           notes?: string | null
           owner_user_id?: string | null
-          patient_id?: string | null
           phone?: string | null
-          source?: Database["public"]["Enums"]["crm_source"]
-          stage?: Database["public"]["Enums"]["crm_stage"]
+          source?: string | null
+          stage?: string
           tags?: string[]
           updated_at?: string
           value_cents?: number
@@ -1450,23 +1153,15 @@ export type Database = {
           next_action_at?: string | null
           notes?: string | null
           owner_user_id?: string | null
-          patient_id?: string | null
           phone?: string | null
-          source?: Database["public"]["Enums"]["crm_source"]
-          stage?: Database["public"]["Enums"]["crm_stage"]
+          source?: string | null
+          stage?: string
           tags?: string[]
           updated_at?: string
           value_cents?: number
           workspace_id?: string
         }
         Relationships: [
-          {
-            foreignKeyName: "crm_leads_patient_id_fkey"
-            columns: ["patient_id"]
-            isOneToOne: false
-            referencedRelation: "patients"
-            referencedColumns: ["id"]
-          },
           {
             foreignKeyName: "crm_leads_workspace_id_fkey"
             columns: ["workspace_id"]
@@ -1546,44 +1241,38 @@ export type Database = {
       }
       dunning_executions: {
         Row: {
-          channel: Database["public"]["Enums"]["dunning_channel"]
+          channel: string | null
           created_at: string
           error: string | null
           flow_id: string | null
           id: string
           invoice_id: string | null
-          message_log_id: string | null
           rendered_body: string | null
-          sent_at: string
-          status: Database["public"]["Enums"]["dunning_exec_status"]
+          status: string
           step_id: string | null
           workspace_id: string | null
         }
         Insert: {
-          channel?: Database["public"]["Enums"]["dunning_channel"]
+          channel?: string | null
           created_at?: string
           error?: string | null
           flow_id?: string | null
           id?: string
           invoice_id?: string | null
-          message_log_id?: string | null
           rendered_body?: string | null
-          sent_at?: string
-          status?: Database["public"]["Enums"]["dunning_exec_status"]
+          status?: string
           step_id?: string | null
           workspace_id?: string | null
         }
         Update: {
-          channel?: Database["public"]["Enums"]["dunning_channel"]
+          channel?: string | null
           created_at?: string
           error?: string | null
           flow_id?: string | null
           id?: string
           invoice_id?: string | null
-          message_log_id?: string | null
           rendered_body?: string | null
-          sent_at?: string
-          status?: Database["public"]["Enums"]["dunning_exec_status"]
+          status?: string
           step_id?: string | null
           workspace_id?: string | null
         }
@@ -1603,13 +1292,6 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "dunning_executions_message_log_id_fkey"
-            columns: ["message_log_id"]
-            isOneToOne: false
-            referencedRelation: "whatsapp_message_logs"
-            referencedColumns: ["id"]
-          },
-          {
             foreignKeyName: "dunning_executions_step_id_fkey"
             columns: ["step_id"]
             isOneToOne: false
@@ -1625,48 +1307,9 @@ export type Database = {
           },
         ]
       }
-      dunning_flow_assignments: {
-        Row: {
-          created_at: string
-          flow_id: string
-          id: string
-          plan: string | null
-          workspace_id: string | null
-        }
-        Insert: {
-          created_at?: string
-          flow_id: string
-          id?: string
-          plan?: string | null
-          workspace_id?: string | null
-        }
-        Update: {
-          created_at?: string
-          flow_id?: string
-          id?: string
-          plan?: string | null
-          workspace_id?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "dunning_flow_assignments_flow_id_fkey"
-            columns: ["flow_id"]
-            isOneToOne: false
-            referencedRelation: "dunning_flows"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "dunning_flow_assignments_workspace_id_fkey"
-            columns: ["workspace_id"]
-            isOneToOne: false
-            referencedRelation: "workspaces"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
       dunning_flow_steps: {
         Row: {
-          channel: Database["public"]["Enums"]["dunning_channel"]
+          channel: string
           created_at: string
           flow_id: string
           id: string
@@ -1674,11 +1317,10 @@ export type Database = {
           offset_days: number
           order_index: number
           template_id: string | null
-          trigger_type: Database["public"]["Enums"]["dunning_trigger"]
-          updated_at: string
+          trigger_type: string
         }
         Insert: {
-          channel?: Database["public"]["Enums"]["dunning_channel"]
+          channel?: string
           created_at?: string
           flow_id: string
           id?: string
@@ -1686,11 +1328,10 @@ export type Database = {
           offset_days?: number
           order_index?: number
           template_id?: string | null
-          trigger_type: Database["public"]["Enums"]["dunning_trigger"]
-          updated_at?: string
+          trigger_type?: string
         }
         Update: {
-          channel?: Database["public"]["Enums"]["dunning_channel"]
+          channel?: string
           created_at?: string
           flow_id?: string
           id?: string
@@ -1698,8 +1339,7 @@ export type Database = {
           offset_days?: number
           order_index?: number
           template_id?: string | null
-          trigger_type?: Database["public"]["Enums"]["dunning_trigger"]
-          updated_at?: string
+          trigger_type?: string
         }
         Relationships: [
           {
@@ -1756,49 +1396,33 @@ export type Database = {
       }
       events: {
         Row: {
-          company_id: string | null
           created_at: string
           event_type: string
           id: string
-          ip_address: string | null
           metadata: Json
           source: string
-          user_agent: string | null
           user_id: string | null
           workspace_id: string | null
         }
         Insert: {
-          company_id?: string | null
           created_at?: string
           event_type: string
           id?: string
-          ip_address?: string | null
           metadata?: Json
           source?: string
-          user_agent?: string | null
           user_id?: string | null
           workspace_id?: string | null
         }
         Update: {
-          company_id?: string | null
           created_at?: string
           event_type?: string
           id?: string
-          ip_address?: string | null
           metadata?: Json
           source?: string
-          user_agent?: string | null
           user_id?: string | null
           workspace_id?: string | null
         }
         Relationships: [
-          {
-            foreignKeyName: "events_company_id_fkey"
-            columns: ["company_id"]
-            isOneToOne: false
-            referencedRelation: "workspaces"
-            referencedColumns: ["id"]
-          },
           {
             foreignKeyName: "events_workspace_id_fkey"
             columns: ["workspace_id"]
@@ -1812,7 +1436,7 @@ export type Database = {
         Row: {
           created_at: string
           duration: string | null
-          exercise_id: string
+          exercise_id: string | null
           id: string
           notes: string | null
           order_index: number
@@ -1823,7 +1447,7 @@ export type Database = {
         Insert: {
           created_at?: string
           duration?: string | null
-          exercise_id: string
+          exercise_id?: string | null
           id?: string
           notes?: string | null
           order_index?: number
@@ -1834,7 +1458,7 @@ export type Database = {
         Update: {
           created_at?: string
           duration?: string | null
-          exercise_id?: string
+          exercise_id?: string | null
           id?: string
           notes?: string | null
           order_index?: number
@@ -1979,53 +1603,34 @@ export type Database = {
         Row: {
           amount: number
           created_at: string
+          description: string | null
           due_date: string
-          external_payment_id: string | null
           id: string
-          notes: string | null
-          paid_at: string | null
-          payment_method: string | null
-          status: Database["public"]["Enums"]["invoice_status"]
-          subscription_id: string | null
+          status: string
           updated_at: string
           workspace_id: string
         }
         Insert: {
-          amount: number
+          amount?: number
           created_at?: string
-          due_date: string
-          external_payment_id?: string | null
+          description?: string | null
+          due_date?: string
           id?: string
-          notes?: string | null
-          paid_at?: string | null
-          payment_method?: string | null
-          status?: Database["public"]["Enums"]["invoice_status"]
-          subscription_id?: string | null
+          status?: string
           updated_at?: string
           workspace_id: string
         }
         Update: {
           amount?: number
           created_at?: string
+          description?: string | null
           due_date?: string
-          external_payment_id?: string | null
           id?: string
-          notes?: string | null
-          paid_at?: string | null
-          payment_method?: string | null
-          status?: Database["public"]["Enums"]["invoice_status"]
-          subscription_id?: string | null
+          status?: string
           updated_at?: string
           workspace_id?: string
         }
         Relationships: [
-          {
-            foreignKeyName: "invoices_subscription_id_fkey"
-            columns: ["subscription_id"]
-            isOneToOne: false
-            referencedRelation: "subscriptions"
-            referencedColumns: ["id"]
-          },
           {
             foreignKeyName: "invoices_workspace_id_fkey"
             columns: ["workspace_id"]
@@ -2038,36 +1643,30 @@ export type Database = {
       landing_leads: {
         Row: {
           created_at: string
-          email: string
+          email: string | null
           id: string
-          message: string | null
-          name: string
-          source: string
-          usage_type: string
-          user_agent: string | null
-          whatsapp: string | null
+          metadata: Json
+          name: string | null
+          phone: string | null
+          source: string | null
         }
         Insert: {
           created_at?: string
-          email: string
+          email?: string | null
           id?: string
-          message?: string | null
-          name: string
-          source?: string
-          usage_type: string
-          user_agent?: string | null
-          whatsapp?: string | null
+          metadata?: Json
+          name?: string | null
+          phone?: string | null
+          source?: string | null
         }
         Update: {
           created_at?: string
-          email?: string
+          email?: string | null
           id?: string
-          message?: string | null
-          name?: string
-          source?: string
-          usage_type?: string
-          user_agent?: string | null
-          whatsapp?: string | null
+          metadata?: Json
+          name?: string | null
+          phone?: string | null
+          source?: string | null
         }
         Relationships: []
       }
@@ -2075,11 +1674,9 @@ export type Database = {
         Row: {
           content_md: string
           created_at: string
-          created_by: string | null
-          effective_date: string
           id: string
           is_current: boolean
-          kind: Database["public"]["Enums"]["legal_kind"]
+          kind: string
           published_at: string | null
           summary: string | null
           title: string
@@ -2087,27 +1684,23 @@ export type Database = {
           version: number
         }
         Insert: {
-          content_md: string
+          content_md?: string
           created_at?: string
-          created_by?: string | null
-          effective_date?: string
           id?: string
           is_current?: boolean
-          kind: Database["public"]["Enums"]["legal_kind"]
+          kind: string
           published_at?: string | null
           summary?: string | null
           title: string
           updated_at?: string
-          version: number
+          version?: number
         }
         Update: {
           content_md?: string
           created_at?: string
-          created_by?: string | null
-          effective_date?: string
           id?: string
           is_current?: boolean
-          kind?: Database["public"]["Enums"]["legal_kind"]
+          kind?: string
           published_at?: string | null
           summary?: string | null
           title?: string
@@ -2118,103 +1711,55 @@ export type Database = {
       }
       legal_settings: {
         Row: {
-          address: string | null
-          city: string | null
-          cnpj: string | null
-          company_name: string
-          contact_email: string | null
-          contact_phone: string | null
-          country: string
-          created_at: string
-          dpo_email: string | null
-          dpo_name: string | null
-          id: number
-          jurisdiction: string
-          legal_name: string | null
-          state: string | null
+          id: string
+          key: string
           updated_at: string
-          website_url: string | null
-          zip: string | null
+          value: Json
         }
         Insert: {
-          address?: string | null
-          city?: string | null
-          cnpj?: string | null
-          company_name?: string
-          contact_email?: string | null
-          contact_phone?: string | null
-          country?: string
-          created_at?: string
-          dpo_email?: string | null
-          dpo_name?: string | null
-          id?: number
-          jurisdiction?: string
-          legal_name?: string | null
-          state?: string | null
+          id?: string
+          key: string
           updated_at?: string
-          website_url?: string | null
-          zip?: string | null
+          value?: Json
         }
         Update: {
-          address?: string | null
-          city?: string | null
-          cnpj?: string | null
-          company_name?: string
-          contact_email?: string | null
-          contact_phone?: string | null
-          country?: string
-          created_at?: string
-          dpo_email?: string | null
-          dpo_name?: string | null
-          id?: number
-          jurisdiction?: string
-          legal_name?: string | null
-          state?: string | null
+          id?: string
+          key?: string
           updated_at?: string
-          website_url?: string | null
-          zip?: string | null
+          value?: Json
         }
         Relationships: []
       }
       lgpd_requests: {
         Row: {
-          completed_at: string | null
           created_at: string
           id: string
-          notes: string | null
+          payload: Json
           request_type: string
-          requester_email: string | null
-          requester_name: string
-          requester_phone: string | null
+          requester_email: string
+          requester_name: string | null
+          resolved_at: string | null
           status: string
-          updated_at: string
-          workspace_id: string | null
         }
         Insert: {
-          completed_at?: string | null
           created_at?: string
           id?: string
-          notes?: string | null
+          payload?: Json
           request_type: string
-          requester_email?: string | null
-          requester_name: string
-          requester_phone?: string | null
+          requester_email: string
+          requester_name?: string | null
+          resolved_at?: string | null
           status?: string
-          updated_at?: string
-          workspace_id?: string | null
         }
         Update: {
-          completed_at?: string | null
           created_at?: string
           id?: string
-          notes?: string | null
+          payload?: Json
           request_type?: string
-          requester_email?: string | null
-          requester_name?: string
-          requester_phone?: string | null
+          requester_email?: string
+          requester_name?: string | null
+          resolved_at?: string | null
           status?: string
-          updated_at?: string
-          workspace_id?: string | null
         }
         Relationships: []
       }
@@ -2366,14 +1911,17 @@ export type Database = {
       platform_admins: {
         Row: {
           created_at: string
+          id: string
           user_id: string
         }
         Insert: {
           created_at?: string
+          id?: string
           user_id: string
         }
         Update: {
           created_at?: string
+          id?: string
           user_id?: string
         }
         Relationships: []
@@ -2439,172 +1987,112 @@ export type Database = {
       }
       prompt_injection_rules: {
         Row: {
-          action: string
-          category: string
+          active: boolean
           created_at: string
           id: string
-          is_active: boolean
-          name: string
           pattern: string
           severity: string
-          updated_at: string
         }
         Insert: {
-          action?: string
-          category: string
+          active?: boolean
           created_at?: string
           id?: string
-          is_active?: boolean
-          name: string
           pattern: string
-          severity: string
-          updated_at?: string
+          severity?: string
         }
         Update: {
-          action?: string
-          category?: string
+          active?: boolean
           created_at?: string
           id?: string
-          is_active?: boolean
-          name?: string
           pattern?: string
           severity?: string
-          updated_at?: string
         }
         Relationships: []
       }
       rate_limit_rules: {
         Row: {
-          action: string
+          active: boolean
           created_at: string
-          endpoint_pattern: string
           id: string
-          is_active: boolean
-          max_requests: number
-          name: string
-          target: string
-          updated_at: string
+          key: string
+          limit_count: number
           window_seconds: number
         }
         Insert: {
-          action?: string
+          active?: boolean
           created_at?: string
-          endpoint_pattern?: string
           id?: string
-          is_active?: boolean
-          max_requests: number
-          name: string
-          target: string
-          updated_at?: string
-          window_seconds: number
+          key: string
+          limit_count?: number
+          window_seconds?: number
         }
         Update: {
-          action?: string
+          active?: boolean
           created_at?: string
-          endpoint_pattern?: string
           id?: string
-          is_active?: boolean
-          max_requests?: number
-          name?: string
-          target?: string
-          updated_at?: string
+          key?: string
+          limit_count?: number
           window_seconds?: number
         }
         Relationships: []
       }
       security_events: {
         Row: {
+          actor_user_id: string | null
           created_at: string
-          description: string
           event_type: string
           id: string
-          ip_address: string | null
+          ip_hash: string | null
           metadata: Json
-          phone: string | null
-          risk_score: number
           severity: string
-          source: string
-          user_id: string | null
-          workspace_id: string | null
         }
         Insert: {
+          actor_user_id?: string | null
           created_at?: string
-          description?: string
           event_type: string
           id?: string
-          ip_address?: string | null
+          ip_hash?: string | null
           metadata?: Json
-          phone?: string | null
-          risk_score?: number
-          severity: string
-          source: string
-          user_id?: string | null
-          workspace_id?: string | null
+          severity?: string
         }
         Update: {
+          actor_user_id?: string | null
           created_at?: string
-          description?: string
           event_type?: string
           id?: string
-          ip_address?: string | null
+          ip_hash?: string | null
           metadata?: Json
-          phone?: string | null
-          risk_score?: number
           severity?: string
-          source?: string
-          user_id?: string | null
-          workspace_id?: string | null
         }
         Relationships: []
       }
       security_incidents: {
         Row: {
-          affected_phone: string | null
-          affected_user_id: string | null
-          affected_workspace_id: string | null
-          assigned_to: string | null
           created_at: string
-          description: string
+          description: string | null
           id: string
           metadata: Json
-          opened_at: string
-          resolved_at: string | null
           severity: string
-          source: string
           status: string
           title: string
           updated_at: string
         }
         Insert: {
-          affected_phone?: string | null
-          affected_user_id?: string | null
-          affected_workspace_id?: string | null
-          assigned_to?: string | null
           created_at?: string
-          description?: string
+          description?: string | null
           id?: string
           metadata?: Json
-          opened_at?: string
-          resolved_at?: string | null
-          severity: string
-          source: string
+          severity?: string
           status?: string
           title: string
           updated_at?: string
         }
         Update: {
-          affected_phone?: string | null
-          affected_user_id?: string | null
-          affected_workspace_id?: string | null
-          assigned_to?: string | null
           created_at?: string
-          description?: string
+          description?: string | null
           id?: string
           metadata?: Json
-          opened_at?: string
-          resolved_at?: string | null
           severity?: string
-          source?: string
           status?: string
           title?: string
           updated_at?: string
@@ -2613,136 +2101,57 @@ export type Database = {
       }
       security_settings: {
         Row: {
-          anti_bot_enabled: boolean
-          captcha_enabled: boolean
-          cors_strict: boolean
-          data_retention_days: number
-          dpo_email: string | null
-          dpo_name: string | null
-          honeypot_enabled: boolean
           id: number
-          max_payload_kb: number
-          min_form_seconds: number
-          privacy_policy_url: string | null
-          prompt_injection_enabled: boolean
-          terms_url: string | null
           updated_at: string
-          waf_enabled: boolean
+          value: Json
         }
         Insert: {
-          anti_bot_enabled?: boolean
-          captcha_enabled?: boolean
-          cors_strict?: boolean
-          data_retention_days?: number
-          dpo_email?: string | null
-          dpo_name?: string | null
-          honeypot_enabled?: boolean
           id?: number
-          max_payload_kb?: number
-          min_form_seconds?: number
-          privacy_policy_url?: string | null
-          prompt_injection_enabled?: boolean
-          terms_url?: string | null
           updated_at?: string
-          waf_enabled?: boolean
+          value?: Json
         }
         Update: {
-          anti_bot_enabled?: boolean
-          captcha_enabled?: boolean
-          cors_strict?: boolean
-          data_retention_days?: number
-          dpo_email?: string | null
-          dpo_name?: string | null
-          honeypot_enabled?: boolean
           id?: number
-          max_payload_kb?: number
-          min_form_seconds?: number
-          privacy_policy_url?: string | null
-          prompt_injection_enabled?: boolean
-          terms_url?: string | null
           updated_at?: string
-          waf_enabled?: boolean
+          value?: Json
         }
         Relationships: []
       }
       sticky_notes: {
         Row: {
-          category: string
-          color: string
+          color: string | null
           content: string
           created_at: string
-          created_by: string
-          deleted_at: string | null
           id: string
-          is_archived: boolean
-          is_important: boolean
-          is_pinned: boolean
-          patient_id: string | null
-          position: number
-          priority: string
-          reminder_at: string | null
-          tags: string[]
+          pinned: boolean
           title: string
           updated_at: string
           user_id: string
-          view_status: string
-          visibility: string
           workspace_id: string
         }
         Insert: {
-          category?: string
-          color?: string
+          color?: string | null
           content?: string
           created_at?: string
-          created_by: string
-          deleted_at?: string | null
           id?: string
-          is_archived?: boolean
-          is_important?: boolean
-          is_pinned?: boolean
-          patient_id?: string | null
-          position?: number
-          priority?: string
-          reminder_at?: string | null
-          tags?: string[]
-          title: string
+          pinned?: boolean
+          title?: string
           updated_at?: string
           user_id: string
-          view_status?: string
-          visibility?: string
           workspace_id: string
         }
         Update: {
-          category?: string
-          color?: string
+          color?: string | null
           content?: string
           created_at?: string
-          created_by?: string
-          deleted_at?: string | null
           id?: string
-          is_archived?: boolean
-          is_important?: boolean
-          is_pinned?: boolean
-          patient_id?: string | null
-          position?: number
-          priority?: string
-          reminder_at?: string | null
-          tags?: string[]
+          pinned?: boolean
           title?: string
           updated_at?: string
           user_id?: string
-          view_status?: string
-          visibility?: string
           workspace_id?: string
         }
         Relationships: [
-          {
-            foreignKeyName: "sticky_notes_patient_id_fkey"
-            columns: ["patient_id"]
-            isOneToOne: false
-            referencedRelation: "patients"
-            referencedColumns: ["id"]
-          },
           {
             foreignKeyName: "sticky_notes_workspace_id_fkey"
             columns: ["workspace_id"]
@@ -2974,61 +2383,39 @@ export type Database = {
       }
       webhook_deliveries: {
         Row: {
-          attempts: number
           created_at: string
-          event_id: string | null
-          event_type: string
+          error: string | null
+          event_type: string | null
           id: string
-          last_attempt_at: string | null
-          next_retry_at: string | null
           payload: Json
-          request_headers: Json
           response_body: string | null
           response_status: number | null
-          status: Database["public"]["Enums"]["delivery_status"]
-          url: string
-          webhook_id: string
+          status: string
+          webhook_id: string | null
         }
         Insert: {
-          attempts?: number
           created_at?: string
-          event_id?: string | null
-          event_type: string
+          error?: string | null
+          event_type?: string | null
           id?: string
-          last_attempt_at?: string | null
-          next_retry_at?: string | null
           payload?: Json
-          request_headers?: Json
           response_body?: string | null
           response_status?: number | null
-          status?: Database["public"]["Enums"]["delivery_status"]
-          url: string
-          webhook_id: string
+          status?: string
+          webhook_id?: string | null
         }
         Update: {
-          attempts?: number
           created_at?: string
-          event_id?: string | null
-          event_type?: string
+          error?: string | null
+          event_type?: string | null
           id?: string
-          last_attempt_at?: string | null
-          next_retry_at?: string | null
           payload?: Json
-          request_headers?: Json
           response_body?: string | null
           response_status?: number | null
-          status?: Database["public"]["Enums"]["delivery_status"]
-          url?: string
-          webhook_id?: string
+          status?: string
+          webhook_id?: string | null
         }
         Relationships: [
-          {
-            foreignKeyName: "webhook_deliveries_event_id_fkey"
-            columns: ["event_id"]
-            isOneToOne: false
-            referencedRelation: "events"
-            referencedColumns: ["id"]
-          },
           {
             foreignKeyName: "webhook_deliveries_webhook_id_fkey"
             columns: ["webhook_id"]
@@ -3040,74 +2427,48 @@ export type Database = {
       }
       webhooks: {
         Row: {
+          active: boolean
           created_at: string
-          created_by: string | null
-          description: string | null
           events: string[]
-          headers: Json
           id: string
           name: string
-          secret: string
-          status: Database["public"]["Enums"]["webhook_status"]
+          secret: string | null
           updated_at: string
           url: string
-          workspace_id: string | null
         }
         Insert: {
+          active?: boolean
           created_at?: string
-          created_by?: string | null
-          description?: string | null
           events?: string[]
-          headers?: Json
           id?: string
           name: string
-          secret?: string
-          status?: Database["public"]["Enums"]["webhook_status"]
+          secret?: string | null
           updated_at?: string
           url: string
-          workspace_id?: string | null
         }
         Update: {
+          active?: boolean
           created_at?: string
-          created_by?: string | null
-          description?: string | null
           events?: string[]
-          headers?: Json
           id?: string
           name?: string
-          secret?: string
-          status?: Database["public"]["Enums"]["webhook_status"]
+          secret?: string | null
           updated_at?: string
           url?: string
-          workspace_id?: string | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "webhooks_workspace_id_fkey"
-            columns: ["workspace_id"]
-            isOneToOne: false
-            referencedRelation: "workspaces"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
       whatsapp_message_logs: {
         Row: {
           body: string | null
           created_at: string
           created_by: string | null
-          delivered_at: string | null
           error: string | null
-          external_id: string | null
-          failed_at: string | null
           id: string
-          metadata: Json
-          read_at: string | null
+          provider_response: Json | null
           related_id: string | null
           related_type: string | null
-          sent_at: string | null
           status: string
-          template: string | null
           to_number: string
           updated_at: string
           workspace_id: string | null
@@ -3116,18 +2477,12 @@ export type Database = {
           body?: string | null
           created_at?: string
           created_by?: string | null
-          delivered_at?: string | null
           error?: string | null
-          external_id?: string | null
-          failed_at?: string | null
           id?: string
-          metadata?: Json
-          read_at?: string | null
+          provider_response?: Json | null
           related_id?: string | null
           related_type?: string | null
-          sent_at?: string | null
           status?: string
-          template?: string | null
           to_number: string
           updated_at?: string
           workspace_id?: string | null
@@ -3136,18 +2491,12 @@ export type Database = {
           body?: string | null
           created_at?: string
           created_by?: string | null
-          delivered_at?: string | null
           error?: string | null
-          external_id?: string | null
-          failed_at?: string | null
           id?: string
-          metadata?: Json
-          read_at?: string | null
+          provider_response?: Json | null
           related_id?: string | null
           related_type?: string | null
-          sent_at?: string | null
           status?: string
-          template?: string | null
           to_number?: string
           updated_at?: string
           workspace_id?: string | null
@@ -3166,44 +2515,29 @@ export type Database = {
         Row: {
           attempts: number
           code_hash: string
+          consumed_at: string | null
           created_at: string
           expires_at: string
           id: string
-          ip: string | null
-          max_attempts: number
           phone: string
-          purpose: string
-          used_at: string | null
-          user_agent: string | null
-          user_id: string | null
         }
         Insert: {
           attempts?: number
           code_hash: string
+          consumed_at?: string | null
           created_at?: string
-          expires_at?: string
+          expires_at: string
           id?: string
-          ip?: string | null
-          max_attempts?: number
           phone: string
-          purpose: string
-          used_at?: string | null
-          user_agent?: string | null
-          user_id?: string | null
         }
         Update: {
           attempts?: number
           code_hash?: string
+          consumed_at?: string | null
           created_at?: string
           expires_at?: string
           id?: string
-          ip?: string | null
-          max_attempts?: number
           phone?: string
-          purpose?: string
-          used_at?: string | null
-          user_agent?: string | null
-          user_id?: string | null
         }
         Relationships: []
       }
@@ -3212,58 +2546,55 @@ export type Database = {
           active: boolean
           body: string
           buttons: Json
-          category: Database["public"]["Enums"]["template_category"]
+          category: string | null
           created_at: string
           description: string | null
           footer_text: string | null
-          format: Database["public"]["Enums"]["template_format"]
+          format: string | null
           id: string
-          key: string
+          key: string | null
           list_button_text: string | null
           list_sections: Json
-          message_type: Database["public"]["Enums"]["whatsapp_message_type"]
+          message_type: string
           name: string
-          purpose: string
+          purpose: string | null
           updated_at: string
-          variables: Json
         }
         Insert: {
           active?: boolean
-          body: string
+          body?: string
           buttons?: Json
-          category?: Database["public"]["Enums"]["template_category"]
+          category?: string | null
           created_at?: string
           description?: string | null
           footer_text?: string | null
-          format?: Database["public"]["Enums"]["template_format"]
+          format?: string | null
           id?: string
-          key: string
+          key?: string | null
           list_button_text?: string | null
           list_sections?: Json
-          message_type?: Database["public"]["Enums"]["whatsapp_message_type"]
-          name: string
-          purpose: string
+          message_type?: string
+          name?: string
+          purpose?: string | null
           updated_at?: string
-          variables?: Json
         }
         Update: {
           active?: boolean
           body?: string
           buttons?: Json
-          category?: Database["public"]["Enums"]["template_category"]
+          category?: string | null
           created_at?: string
           description?: string | null
           footer_text?: string | null
-          format?: Database["public"]["Enums"]["template_format"]
+          format?: string | null
           id?: string
-          key?: string
+          key?: string | null
           list_button_text?: string | null
           list_sections?: Json
-          message_type?: Database["public"]["Enums"]["whatsapp_message_type"]
+          message_type?: string
           name?: string
-          purpose?: string
+          purpose?: string | null
           updated_at?: string
-          variables?: Json
         }
         Relationships: []
       }
@@ -3373,9 +2704,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      generate_monthly_invoices: { Args: never; Returns: undefined }
       is_super_admin: { Args: { _user_id: string }; Returns: boolean }
-      mark_overdue_invoices: { Args: never; Returns: undefined }
       record_event: {
         Args: {
           _event_type: string
@@ -3385,66 +2714,12 @@ export type Database = {
         }
         Returns: string
       }
-      resolve_attribution: {
-        Args: { _coupon_code?: string; _visitor_id: string }
-        Returns: {
-          affiliate_id: string
-          click_id: string
-          link_id: string
-          model: Database["public"]["Enums"]["attribution_model"]
-        }[]
-      }
     }
     Enums: {
-      affiliate_status: "pending" | "active" | "suspended" | "banned"
-      affiliate_tier: "bronze" | "silver" | "gold" | "platinum"
-      affiliate_type:
-        | "influencer"
-        | "professional"
-        | "clinic"
-        | "partner"
-        | "student"
-        | "other"
       app_role: "super_admin" | "admin" | "physiotherapist" | "assistant"
       appointment_status: "scheduled" | "completed" | "cancelled" | "missed"
       appointment_type: "avaliacao" | "sessao" | "retorno" | "outro"
-      attribution_model: "first_click" | "last_click" | "coupon"
-      booking_status: "pending" | "confirmed" | "cancelled"
       charge_status: "pending" | "paid" | "overdue" | "cancelled"
-      commission_status: "pending" | "available" | "paid" | "canceled"
-      conversion_status: "pending" | "paid" | "refunded" | "canceled"
-      crm_activity_type:
-        | "nota"
-        | "ligacao"
-        | "email"
-        | "whatsapp"
-        | "reuniao"
-        | "outro"
-      crm_source: "booking_link" | "manual" | "import" | "referral"
-      crm_stage:
-        | "novo"
-        | "contato"
-        | "qualificado"
-        | "agendado"
-        | "convertido"
-        | "perdido"
-      delivery_status: "pending" | "success" | "failed" | "retrying"
-      dunning_channel: "whatsapp" | "email" | "both"
-      dunning_exec_status:
-        | "sent"
-        | "failed"
-        | "skipped"
-        | "stopped"
-        | "pending_provider"
-      dunning_trigger: "before_due" | "on_due" | "after_due"
-      invoice_status:
-        | "pending"
-        | "paid"
-        | "overdue"
-        | "cancelled"
-        | "refunded"
-        | "manual_release"
-      legal_kind: "privacy" | "terms" | "cookies"
       member_status: "active" | "invited" | "disabled"
       note_category:
         | "avaliacao"
@@ -3454,23 +2729,11 @@ export type Database = {
         | "outro"
       note_visibility: "private" | "workspace"
       patient_status: "active" | "inactive"
-      payout_method: "pix" | "ted" | "manual" | "other"
-      payout_status: "draft" | "processing" | "paid" | "failed"
       plan_kind: "free" | "pro_monthly" | "pro_yearly"
       task_priority: "low" | "medium" | "high"
       task_status: "pending" | "completed" | "cancelled"
-      template_category:
-        | "reminder"
-        | "due_today"
-        | "overdue"
-        | "negotiation"
-        | "payment_confirmed"
-        | "custom"
-      template_format: "text" | "html"
       theme_pref: "automatic" | "light" | "dark"
       use_mode: "professional" | "clinic"
-      webhook_status: "active" | "inactive"
-      whatsapp_message_type: "text" | "button" | "list"
       workspace_status:
         | "active"
         | "trial"
@@ -3606,60 +2869,10 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      affiliate_status: ["pending", "active", "suspended", "banned"],
-      affiliate_tier: ["bronze", "silver", "gold", "platinum"],
-      affiliate_type: [
-        "influencer",
-        "professional",
-        "clinic",
-        "partner",
-        "student",
-        "other",
-      ],
       app_role: ["super_admin", "admin", "physiotherapist", "assistant"],
       appointment_status: ["scheduled", "completed", "cancelled", "missed"],
       appointment_type: ["avaliacao", "sessao", "retorno", "outro"],
-      attribution_model: ["first_click", "last_click", "coupon"],
-      booking_status: ["pending", "confirmed", "cancelled"],
       charge_status: ["pending", "paid", "overdue", "cancelled"],
-      commission_status: ["pending", "available", "paid", "canceled"],
-      conversion_status: ["pending", "paid", "refunded", "canceled"],
-      crm_activity_type: [
-        "nota",
-        "ligacao",
-        "email",
-        "whatsapp",
-        "reuniao",
-        "outro",
-      ],
-      crm_source: ["booking_link", "manual", "import", "referral"],
-      crm_stage: [
-        "novo",
-        "contato",
-        "qualificado",
-        "agendado",
-        "convertido",
-        "perdido",
-      ],
-      delivery_status: ["pending", "success", "failed", "retrying"],
-      dunning_channel: ["whatsapp", "email", "both"],
-      dunning_exec_status: [
-        "sent",
-        "failed",
-        "skipped",
-        "stopped",
-        "pending_provider",
-      ],
-      dunning_trigger: ["before_due", "on_due", "after_due"],
-      invoice_status: [
-        "pending",
-        "paid",
-        "overdue",
-        "cancelled",
-        "refunded",
-        "manual_release",
-      ],
-      legal_kind: ["privacy", "terms", "cookies"],
       member_status: ["active", "invited", "disabled"],
       note_category: [
         "avaliacao",
@@ -3670,24 +2883,11 @@ export const Constants = {
       ],
       note_visibility: ["private", "workspace"],
       patient_status: ["active", "inactive"],
-      payout_method: ["pix", "ted", "manual", "other"],
-      payout_status: ["draft", "processing", "paid", "failed"],
       plan_kind: ["free", "pro_monthly", "pro_yearly"],
       task_priority: ["low", "medium", "high"],
       task_status: ["pending", "completed", "cancelled"],
-      template_category: [
-        "reminder",
-        "due_today",
-        "overdue",
-        "negotiation",
-        "payment_confirmed",
-        "custom",
-      ],
-      template_format: ["text", "html"],
       theme_pref: ["automatic", "light", "dark"],
       use_mode: ["professional", "clinic"],
-      webhook_status: ["active", "inactive"],
-      whatsapp_message_type: ["text", "button", "list"],
       workspace_status: [
         "active",
         "trial",
