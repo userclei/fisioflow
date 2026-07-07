@@ -5,7 +5,7 @@ import { InputField, PasswordField } from "@/components/fisioflow/InputField";
 import { PrimaryButton } from "@/components/fisioflow/PrimaryButton";
 import { SocialAuthButtons } from "@/components/fisioflow/SocialAuthButtons";
 import { supabase } from "@/integrations/supabase/client";
-import { createSandboxUser } from "@/lib/sandbox.functions";
+import { seedSandboxData } from "@/lib/sandbox.functions";
 import { useSession } from "@/lib/auth";
 import { toast } from "sonner";
 
@@ -44,9 +44,33 @@ function LoginPage() {
   async function handleSandbox() {
     setSandboxBusy(true);
     try {
-      const creds = await createSandboxUser();
-      const { error } = await supabase.auth.signInWithPassword(creds);
-      if (error) throw error;
+      const suffix = crypto.randomUUID().slice(0, 8);
+      const sbEmail = `sandbox_${suffix}@fisioflow.test`;
+      const sbPassword = crypto.randomUUID();
+
+      const { error: signUpErr } = await supabase.auth.signUp({
+        email: sbEmail,
+        password: sbPassword,
+        options: {
+          emailRedirectTo: `${window.location.origin}/home`,
+          data: { full_name: "Admin Sandbox", is_sandbox: true },
+        },
+      });
+      if (signUpErr) throw signUpErr;
+
+      const { error: signInErr } = await supabase.auth.signInWithPassword({
+        email: sbEmail,
+        password: sbPassword,
+      });
+      if (signInErr) {
+        toast.error("Confirme o e-mail primeiro ou desative confirmação nas configs de auth.");
+        throw signInErr;
+      }
+
+      // Aguarda trigger criar workspace/profile antes do seed
+      await new Promise((r) => setTimeout(r, 800));
+      await seedSandboxData();
+
       toast.success("Sessão sandbox criada com dados de exemplo");
       navigate({ to: "/home" });
     } catch (err) {
@@ -55,6 +79,7 @@ function LoginPage() {
       setSandboxBusy(false);
     }
   }
+
 
   async function handleForgot() {
     if (!email) return toast("Digite seu e-mail no campo acima primeiro");
