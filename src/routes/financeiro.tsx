@@ -54,7 +54,7 @@ function FinanceiroPage() {
     },
   });
 
-  const list = charges.data ?? [];
+  const list = useMemo(() => charges.data ?? [], [charges.data]);
   const monthStart = new Date();
   monthStart.setDate(1);
   const monthStartStr = monthStart.toISOString().slice(0, 10);
